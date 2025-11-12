@@ -845,6 +845,61 @@ h1, h2, h3, h4, h5, h6 {
     .contact__info {
         grid-template-columns: 1fr;
     }
+
+    /* Testimonial slider responsive fixes (2D Fade) */
+    .testimonial-slider-wrapper {
+        perspective: none;
+        min-height: 0; /* Let content define height */
+    }
+
+    /* Reset slide positions */
+    .testimonial-card {
+        position: relative; /* Change from absolute to stack */
+        /* --- THIS IS THE FIX --- */
+        width: 100%; 
+        max-width: 100%; 
+        /* --- END OF FIX --- */
+        transform: none !important; /* !important to override 3D transforms */
+        opacity: 0;
+        z-index: 1;
+        transition: opacity 0.6s ease;
+        margin-bottom: 2rem; /* Add space below */
+        padding: 2rem 1rem 1.5rem; /* Consistent padding */
+    }
+    
+    /* Show only the active slide */
+    .testimonial-card.slide-active {
+        position: relative;
+        opacity: 1;
+        z-index: 10;
+        display: block; /* Ensure it's visible */
+    }
+
+    /* Hide all other slides */
+    .testimonial-card:not(.slide-active) {
+        position: absolute; /* Take out of flow so active one is sized */
+        display: none; /* Hide non-active slides */
+    }
+
+    .testimonial-card--video {
+        padding: 2rem 1rem 1.5rem; /* Ensure consistent padding */
+    }
+    
+    .video-wrapper {
+        padding-bottom: 56.25%; /* 16:9 Aspect Ratio (Back to landscape) */
+    }
+    
+    .slider-nav {
+        display: none; /* Already hidden, but good to be explicit */
+    }
+
+    /* Responsive rules for scrolling grid */
+    .testimonial-grid {
+        grid-template-columns: 1fr; /* Stack columns on mobile */
+    }
+    .testimonial-column {
+        max-height: 400px; /* Shorter mask on mobile */
+    }
 }
 
 @media (max-width: 480px) {
@@ -873,9 +928,392 @@ h1, h2, h3, h4, h5, h6 {
         padding: 12px 20px;
         font-size: 0.9rem;
     }
+
+    /* Make 3D carousel smaller on very small phones */
+    .testimonial-slider-wrapper {
+        /* Allow side slides to be partially off-screen */
+        overflow: visible; 
+        max-width: 100%;
+    }
+
+    /* This section is now overridden by the 2D fade, 
+       but we leave the selector for any future 3D re-introduction on small screens */
+    .testimonial-card.slide-prev-1 {
+        transform: translateX(-40%) translateZ(-100px) rotateY(30deg) scale(0.7);
+    }
+    .testimonial-card.slide-next-1 {
+        transform: translateX(40%) translateZ(-100px) rotateY(-30deg) scale(0.7);
+    }
 }
 
 /* CUSTOM CURSOR HIDE */
 * {
     cursor: none !important;
+}
+
+
+.activities-page {
+    padding: 120px 2rem 60px; /* Add padding for navbar */
+    background: #ffffff;
+    border-bottom: 3px solid #000;
+}
+
+.activities__container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.activity-grid {
+    display: grid;
+    /* Creates a responsive grid of cards */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.activity-card {
+    display: block;
+    text-decoration: none;
+    color: #000000;
+    background: #fdfdfd;
+    border: 2px solid #000;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.activity-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    border-color: #DC2626; /* Highlight with red border on hover */
+}
+
+.activity-card__image {
+    height: 220px;
+    overflow: hidden;
+    border-bottom: 2px solid #000;
+}
+
+.activity-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Apply the same grayscale filter as your other images */
+    filter: grayscale(100%) contrast(1.1);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.activity-card:hover .activity-card__image img {
+    filter: grayscale(0%) contrast(1); /* Show color on hover */
+    transform: scale(1.05);
+}
+
+.activity-card__content {
+    padding: 2rem;
+}
+
+.activity-card__title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #DC2626; /* Use theme red for titles */
+}
+
+.activity-card__description {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.7;
+}
+
+/* --- TESTIMONIALS SECTION (3D CAROUSEL) --- */
+.testimonials {
+    padding: 160px 2rem;
+    border-bottom: 3px solid #000;
+    background: #f9f9f9; /* Light BG to separate from white sections */
+}
+
+.testimonials__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* NEW: This container now handles positioning and width */
+.testimonial-carousel-container {
+    position: relative;
+    max-width: 1000px; /* This controls the overall width */
+    margin: 0 auto;
+}
+
+/* MODIFIED: This wrapper is ONLY for 3D perspective now */
+.testimonial-slider-wrapper {
+    position: relative;
+    /* max-width and margin are removed, now handled by parent */
+    overflow: hidden; 
+    perspective: 1000px; 
+    min-height: 500px; /* Give it space */
+    border: none; 
+    background: none; 
+}
+
+.testimonial-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d; 
+}
+
+/* Base styles for all slides in the 3D carousel */
+.testimonial-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto; 
+    width: 70%; 
+    max-width: 800px; 
+    transition: transform 0.6s ease, opacity 0.6s ease, z-index 0.6s ease;
+    border: 2px solid #000;
+    background: #fff;
+}
+
+.testimonial__author {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #DC2626; 
+}
+
+/* Style for Video Testimonials */
+.testimonial-card--video {
+    padding: 2rem 1rem 1.5rem; 
+}
+
+.testimonial-card--video .testimonial__author {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #DC2626;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio (default for desktop) */
+    height: 0;
+    overflow: hidden;
+    border: 2px solid #000;
+    background: #000; 
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* NEW: Styles for video thumbnails and play button */
+.video-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.3s ease;
+}
+
+.play-button-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.play-button-overlay::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 18px; /* Creates a triangle */
+    border-color: transparent transparent transparent white;
+    margin-left: 4px;
+}
+
+/* Hide play button on active slide (since video will play) */
+.testimonial-card.slide-active .play-button-overlay {
+    opacity: 0;
+}
+
+/* NEW: Hide the video data div */
+.video-data {
+    display: none;
+}
+
+
+/* 3D CAROUSEL STATE CLASSES (NEW) */
+.testimonial-card.slide-active {
+    transform: translateX(0) translateZ(0) rotateY(0) scale(1);
+    opacity: 1;
+    z-index: 10;
+}
+
+.testimonial-card.slide-prev-1 {
+    transform: translateX(-50%) translateZ(-200px) rotateY(35deg) scale(0.85); 
+    opacity: 0.7;
+    z-index: 5;
+}
+
+.testimonial-card.slide-next-1 {
+    transform: translateX(50%) translateZ(-200px) rotateY(-35deg) scale(0.85); 
+    opacity: 0.7;
+    z-index: 5;
+}
+
+/* This class is for any slides that are not active or adjacent */
+.testimonial-card.slide-hidden {
+    transform: translateX(0) translateZ(-500px) scale(0.4);
+    opacity: 0;
+    z-index: 1;
+}
+
+
+/* MODIFIED: Buttons are now hidden */
+.slider-nav {
+    display: none; /* Removed buttons, auto-scroll enabled */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: 2px solid #000;
+    color: #DC2626;
+    font-size: 1.5rem;
+    font-weight: 700;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100; 
+}
+
+.slider-nav:hover {
+    background: #000;
+    color: white;
+}
+
+/* MODIFIED: Pushed buttons further out to be clear of the side slides */
+.slider-nav.prev {
+    left: -30px; /* Was 0px */
+}
+
+.slider-nav.next {
+    right: -30px; /* Was 0px */
+}
+
+/* --- Testimonial Scrolling Wall --- */
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonial-column {
+    max-height: 500px; 
+    overflow: hidden;
+    position: relative; 
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+.testimonial-column__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    animation: scroll-up var(--scroll-duration, 30s) linear infinite;
+}
+
+.testimonial-column:hover .testimonial-column__inner {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-up {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50%); 
+    }
+}
+
+.text-review-card {
+    background: #ffffff;
+    border: 2px solid #000;
+    padding: 1.5rem;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.text-review-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.text-review-card__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    border: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #DC2626;
+    flex-shrink: 0;
+}
+
+.text-review-card__author {
+    font-weight: 700;
+    color: #000;
+}
+
+.text-review-card__source {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.text-review-card__text {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- RESPONSIVE FIX FOR TESTIMONIAL GRID --- */
+/* This rule MUST be at the end, or near the end, of the mobile styles */
+@media (max-width: 768px) {
+    .testimonial-grid {
+        grid-template-columns: 1fr; /* Stack columns on mobile */
+    }
 }
