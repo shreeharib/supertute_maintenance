@@ -21,6 +21,7 @@
                 <li><a href="#approach" class="navbar__link">Approach</a></li>
                 <li><a href="#services" class="navbar__link">Services</a></li>
                 <li><a href="#contact" class="navbar__link">Contact</a></li>
+                <li><a href="/activity/activities.html" class="navbar__link">Activities</a></li>
             </ul>
             <a href="#contact" class="navbar__cta">Start Now</a>
             <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu">
@@ -47,6 +48,9 @@
             </div>
         </div>
     </section>
+
+    
+
 
     <!-- About Section -->
     <section id="about" class="about">
@@ -221,6 +225,69 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="testimonials__container">
+            <h2 class="section__title">What Our Students Say</h2>
+            <p class="section__subtitle">Real results from real learners.</p>
+
+            <!-- NEW: Outer container for positioning buttons -->
+            <div class="testimonial-carousel-container">
+
+                <!-- 3D Video Carousel Wrapper (Now for perspective ONLY) -->
+                <div class="testimonial-slider-wrapper">
+                    <div class="testimonial-slider">
+
+                        <!-- SLIDE 1: VIDEO TESTIMONIAL (YOURS) -->
+                        <div class="testimonial-card testimonial-card--video">
+                            <div class="video-wrapper">
+                                <img src="https://img.youtube.com/vi/fbM6w92bYAg/hqdefault.jpg" alt="Video Thumbnail" class="video-thumbnail">
+                                <div class="play-button-overlay"></div>
+                            </div>
+                            <div class="video-data" 
+                                 data-src="https://www.youtube.com/embed/fbM6w92bYAg?si=XuowjFM6uKRuXVkx&rel=0&autoplay=0" 
+                                 data-thumbnail="https://img.youtube.com/vi/fbM6w92bYAg/hqdefault.jpg">
+                            </div>
+                            <p class="testimonial__author">Bindhu, GCE Tirunelveli</p>
+                        </div>
+                        
+                        <!-- SLIDE 2: VIDEO TESTIMONIAL (YOUR SHORT) -->
+                        <div class="testimonial-card testimonial-card--video">
+                            <div class="video-wrapper">
+                                <!-- Thumbnail for your Short -->
+                                <img src="https://img.youtube.com/vi/2BMxlELsc88/hqdefault.jpg" alt="Video Thumbnail" class="video-thumbnail">
+                                <div class="play-button-overlay"></div>
+                            </div>
+                            <div class="video-data" 
+                                 data-src="https://www.youtube.com/embed/2BMxlELsc88?si=fLDM8XgECOcmtk_8&rel=0&autoplay=0" 
+                                 data-thumbnail="https://img.youtube.com/vi/2BMxlELsc88/hqdefault.jpg">
+                            </div>
+                            <p class="testimonial__author">Boobalan, GCE Tirunelveli</p>
+                        </div>
+
+                        <!-- SLIDE 3: VIDEO TESTIMONIAL (PLACEHOLDER) -->
+                        <div class="testimonial-card testimonial-card--video">
+                            <div class="video-wrapper">
+                                <img src="https://img.youtube.com/vi/Yn2BA0llrAQ/hqdefault.jpg" alt="Video Thumbnail" class="video-thumbnail">
+                                <div class="play-button-overlay"></div>
+                            </div>
+                            <div class="video-data" 
+                                 data-src="https://www.youtube.com/embed/Yn2BA0llrAQ?si=NRutPiRwWHWzWl-b&rel=0&autoplay=0" 
+                                 data-thumbnail="https://img.youtube.com/vi/Yn2BA0llrAQ/hqdefault.jpg">
+                            </div>
+                            <p class="testimonial__author">Renuka, GCE Tirunelveli</p>
+                        </div>
+                    </div>
+                </div> <!-- End 3D Video Wrapper -->
+                
+                <!-- Buttons are removed, auto-scroll is handled by JS -->
+
+            </div>
+            <!-- End Outer Container -->
+
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="contact__container">
@@ -265,7 +332,7 @@
                         <a href="tel:+916383258871">+91 638 325 8871</a>
                     </div>
                     <div class="contact__card">
-                        <h3>Copyright</h3>
+                       <h3>Copyright</h3>
                         <p>&copy; 2025 Supertute. All rights reserved.</p>
                     </div>
                     <div class="contact__card">
