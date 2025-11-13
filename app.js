@@ -828,7 +828,7 @@ function validateField(field) {
     return true;
 }
 
-// --- NEW: 3D Testimonial Slider (Auto-scroll version) ---
+// --- NEW: 3D Testimonial Slider (Auto-scroll version with Dynamic Ratio) ---
 function initTestimonialSlider() {
     const sliderContainer = document.querySelector('.testimonial-carousel-container');
     if (!sliderContainer) return; 
@@ -842,12 +842,34 @@ function initTestimonialSlider() {
     }
     let slideInterval;
 
+    // Helper function to set the correct aspect ratio class
+    function setWrapperRatio(slide) {
+        const wrapper = slide.querySelector('.video-wrapper');
+        const data = slide.querySelector('.video-data');
+        if (!wrapper || !data) return;
+
+        const ratio = data.dataset.ratio; // '16:9' or '9:16'
+        
+        // Clear previous ratios
+        wrapper.classList.remove('ratio-16-9', 'ratio-9-16');
+
+        // Add the correct ratio class
+        if (ratio === '9:16') {
+            wrapper.classList.add('ratio-9-16');
+        } else {
+            wrapper.classList.add('ratio-16-9'); // Default to 16:9
+        }
+    }
+
     function createIframe(slide) {
         const wrapper = slide.querySelector('.video-wrapper');
         const data = slide.querySelector('.video-data');
         if (!wrapper || !data || wrapper.querySelector('iframe')) {
             return; // Already has an iframe or no data
         }
+        
+        // SET RATIO before creating iframe
+        setWrapperRatio(slide);
         
         // Create the iframe
         const iframe = document.createElement('iframe');
@@ -868,6 +890,9 @@ function initTestimonialSlider() {
         if (!wrapper || !data || wrapper.querySelector('.video-thumbnail')) {
             return; // Already has a thumbnail or no data
         }
+
+        // SET RATIO before creating thumbnail
+        setWrapperRatio(slide);
 
         // Restore the thumbnail and play button
         wrapper.innerHTML = `

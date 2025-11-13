@@ -855,10 +855,8 @@ h1, h2, h3, h4, h5, h6 {
     /* Reset slide positions */
     .testimonial-card {
         position: relative; /* Change from absolute to stack */
-        /* --- THIS IS THE FIX --- */
         width: 100%; 
         max-width: 100%; 
-        /* --- END OF FIX --- */
         transform: none !important; /* !important to override 3D transforms */
         opacity: 0;
         z-index: 1;
@@ -886,8 +884,18 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .video-wrapper {
-        padding-bottom: 56.25%; /* 16:9 Aspect Ratio (Back to landscape) */
+        /* This is no longer hardcoded, JS will add classes */
     }
+
+    /* --- THIS IS THE REVERTED CODE --- */
+    /* Dynamic Ratio Classes for Mobile */
+    .video-wrapper.ratio-16-9 {
+        padding-bottom: 56.25%; /* 16:9 */
+    }
+    .video-wrapper.ratio-9-16 {
+        padding-bottom: 177.78%; /* 9:16 */
+    }
+    /* --- END OF REVERTED CODE --- */
     
     .slider-nav {
         display: none; /* Already hidden, but good to be explicit */
